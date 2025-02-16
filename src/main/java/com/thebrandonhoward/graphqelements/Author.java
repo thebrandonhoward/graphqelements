@@ -3,12 +3,12 @@ package com.thebrandonhoward.graphqelements;
 import java.util.Arrays;
 import java.util.List;
 
-public record Author (String id, String firstName, String lastName) {
+public record Author (String id, String firstName, String lastName, Review review) {
 
-    private static List<Author> authors = Arrays.asList(
-            new Author("author-1", "Joshua", "Bloch"),
-            new Author("author-2", "Douglas", "Adams"),
-            new Author("author-3", "Bill", "Bryson")
+    static final List<Author> authors = Arrays.asList(
+            new Author("author-1", "Joshua", "Bloch", null),
+            new Author("author-2", "Douglas", "Adams", null),
+            new Author("author-3", "Bill", "Bryson", null)
     );
 
     public static Author getById(String id) {

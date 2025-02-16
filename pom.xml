@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.1</version>
+        <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.thebrandonhoward</groupId>
@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <lombok.version>1.18.36</lombok.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,22 +37,31 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.apollographql.apollo</groupId>
-            <artifactId>apollo-runtime</artifactId>
-            <version>2.5.14</version>
-        </dependency><dependency>
-        <groupId>com.apollographql.apollo</groupId>
-        <artifactId>apollo-rx2-support</artifactId>
-        <version>2.5.14</version>
-    </dependency>
-
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.apollographql.apollo</groupId>-->
+<!--            <artifactId>apollo-runtime</artifactId>-->
+<!--            <version>2.5.14</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.apollographql.apollo</groupId>-->
+<!--            <artifactId>apollo-rx2-support</artifactId>-->
+<!--            <version>2.5.14</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,9 +87,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
+                        <source>21</source>
+                        <target>21</target>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

@@ -5,7 +5,37 @@ Graphql Server
 http://localhost:8080/graphiql?path=/graphql
 
 
-    query bookDetails {
+    subscription GetAddedBooksSubscription {
+        bookAdded {
+            id
+        }
+    }
+
+
+
+
+    query GetAllBooks{
+        books {
+            id
+            name
+            pageCount
+            author {
+                id
+                firstName
+                lastName
+                reviews {
+                    id
+                    message
+                    rating
+                }
+            }
+        }
+    }
+
+
+
+
+    query GetBookByIdFiveStarReviews {
         bookById(id: "book-1") {
             id
             name
@@ -14,10 +44,35 @@ http://localhost:8080/graphiql?path=/graphql
                 id
                 firstName
                 lastName
+                reviews(filter: 5) {
+                    id
+                    message
+                    rating
+                }
             }
         }
     }
 
+
+
+
+    query GetBookById {
+        bookById(id: "book-4") {
+            id
+            name
+            pageCount
+            author {
+                id
+                firstName
+                lastName
+                reviews {
+                    id
+                    message
+                    rating
+                }
+            }
+        }
+    }
 
 
 
