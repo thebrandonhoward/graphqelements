@@ -1,3 +1,6 @@
 type Subscription {
-    bookAdded: Book
+    """
+    Subscribes to notifications when a new book is added.
+    """
+    bookAdded: Book # The newly added book.
 }

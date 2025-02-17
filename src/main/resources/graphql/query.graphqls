@@ -1,4 +1,8 @@
+"""
+Query schema for Book APIs
+"""
 type Query {
-    bookById(id: ID): Book
-    books: [Book]
+    author(id: ID!): Author # Retrieve an author by ID.
+    bookById(id: ID): Book # Retrieve a book by ID.
+    books: [Book] # Retrieve all books.
 }

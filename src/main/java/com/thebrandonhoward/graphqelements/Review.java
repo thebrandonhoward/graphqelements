@@ -12,14 +12,14 @@ import java.util.List;
 public class Review {
     private String id;
     private String message;
-    private int rating;
+    private Long rating;
 
     static List<Review> getInstances() {
         return List.of(
-                new Review(Integer.toString(1), "Bad", 1)
-                ,new Review(Integer.toString(2), "Great", 5)
-                ,new Review(Integer.toString(3), "Awesome", 5)
-                ,new Review(Integer.toString(4), "OK", 3)
-                ,new Review(Integer.toString(5), "Classic", 5));
+                new Review(Integer.toString(1), "Bad", 1L)
+                ,new Review(Integer.toString(2), "Great", 5L)
+                ,new Review(Integer.toString(3), "Awesome", 5L)
+                ,new Review(Integer.toString(4), "OK", 3L)
+                ,new Review(Integer.toString(5), "Classic", 5L));
     }
 }

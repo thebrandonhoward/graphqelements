@@ -43,10 +43,10 @@ public class BookController {
     }
 
     @SchemaMapping(typeName = "Author", field = "reviews")
-    public List<Review> reviews(@Argument Integer filter, Author author) {
+    public List<Review> reviews(@Argument Long filter, Author author) {
         return Review.getInstances()
                 .stream()
-                .filter(review -> Objects.isNull(filter) || review.getRating() == filter)
+                .filter( review -> Objects.isNull(filter) || filter.equals(review.getRating()) )
                 .sorted(Comparator.comparing(Review::getRating).reversed())
                 .toList();
     }
