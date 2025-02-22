@@ -1,4 +1,4 @@
-package com.thebrandonhoward.graphqelements;
+package com.thebrandonhoward.graphqelements.domain.models.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ public class Review {
     private String message;
     private Long rating;
 
-    static List<Review> getInstances() {
+    public static List<Review> getInstances() {
         return List.of(
                 new Review(Integer.toString(1), "Bad", 1L)
                 ,new Review(Integer.toString(2), "Great", 5L)

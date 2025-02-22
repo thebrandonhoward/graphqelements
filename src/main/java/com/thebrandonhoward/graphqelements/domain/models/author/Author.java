@@ -1,4 +1,6 @@
-package com.thebrandonhoward.graphqelements;
+package com.thebrandonhoward.graphqelements.domain.models.author;
+
+import com.thebrandonhoward.graphqelements.domain.models.review.Review;
 
 import java.util.Arrays;
 import java.util.List;

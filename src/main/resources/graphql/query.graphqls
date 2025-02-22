@@ -2,7 +2,29 @@
 Query schema for Book APIs
 """
 type Query {
+    customerQuery: CustomerQuery
     author(id: ID!): Author # Retrieve an author by ID.
     bookById(id: ID): Book # Retrieve a book by ID.
-    books: [Book] # Retrieve all books.
+#    books: [Book] # Retrieve all books.
+#    https://docs.spring.io/spring-graphql/reference/request-execution.html#execution.pagination
+    books(first:Int, after:String, last:Int, before:String): BookConnection
 }
+
+type CustomerQuery {
+    booksForSale: [Book!]!
+#    booksForSaleByAuthor(name: String!): [Book!]!
+}
+
+#type AuthorQuery {
+#    salesSummary: AuthorSalesSummary
+#}
+#
+#type EmployeeQuery {
+#    bookInventory: [Inventory!]!
+#    bookInventoryById(id: ID!): Inventory
+#    bookInventoryByAuthor(name: String!): [Inventory!]!
+#}
+#
+#type ManagerQuery {
+#    salesInfo: SalesSummary!
+#}

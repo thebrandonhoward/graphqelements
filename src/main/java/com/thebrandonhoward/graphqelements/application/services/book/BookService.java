@@ -1,5 +1,7 @@
-package com.thebrandonhoward.graphqelements;
+package com.thebrandonhoward.graphqelements.application.services.book;
 
+import com.thebrandonhoward.graphqelements.domain.models.author.Author;
+import com.thebrandonhoward.graphqelements.domain.models.book.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,6 @@
-package com.thebrandonhoward.graphqelements;
+package com.thebrandonhoward.graphqelements.domain.models.book;
+
+import com.thebrandonhoward.graphqelements.domain.models.author.Author;
 
 import java.util.ArrayList;
 import java.util.List;

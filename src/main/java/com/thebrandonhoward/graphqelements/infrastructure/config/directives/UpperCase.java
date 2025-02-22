@@ -1,4 +1,4 @@
-package com.thebrandonhoward.graphqelements.config.directives;
+package com.thebrandonhoward.graphqelements.infrastructure.config.directives;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.thebrandonhoward.graphqelements.config.directives;
+package com.thebrandonhoward.graphqelements.infrastructure.config.directives;
 
 import graphql.scalars.ExtendedScalars;
 import org.springframework.context.annotation.Bean;
