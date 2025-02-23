@@ -47,6 +47,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>com.apollographql.apollo</groupId>-->
 <!--            <artifactId>apollo-runtime</artifactId>-->

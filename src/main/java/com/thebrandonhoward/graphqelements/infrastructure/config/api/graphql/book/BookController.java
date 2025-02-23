@@ -1,5 +1,7 @@
 package com.thebrandonhoward.graphqelements.infrastructure.config.api.graphql.book;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thebrandonhoward.graphqelements.domain.models.book.CustomerQuery;
 import com.thebrandonhoward.graphqelements.domain.models.review.Review;
 import com.thebrandonhoward.graphqelements.application.services.book.BookService;
@@ -7,31 +9,46 @@ import com.thebrandonhoward.graphqelements.application.common.utils.CursorUtil;
 import com.thebrandonhoward.graphqelements.domain.models.author.Author;
 import com.thebrandonhoward.graphqelements.domain.models.book.Book;
 import graphql.relay.*;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 
+import java.security.Principal;
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class BookController {
     private final BookService bookService;
     private final CursorUtil cursorUtil;
+    private final ObjectMapper objectMapper;
 
 //    public BookController(BookService bookService) {
 //        this.bookService = bookService;
 //    }
 
+    @PreAuthorize("isAuthenticated()")
     @QueryMapping
-    public Book bookById(@Argument String id) {
-        return Book.getById(id);
+    public Book bookById(DataFetchingEnvironment dataFetchingEnvironment, Principal principal, @Argument String id) {
+        try {
+            log.info(objectMapper.writeValueAsString(principal));
+//            log.info(objectMapper.writeValueAsString(dataFetchingEnvironment));
+            return Book.getById(id);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
  //   @QueryMapping
@@ -44,6 +61,7 @@ public class BookController {
         return new CustomerQuery();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @QueryMapping
     public Connection<Book> books(@Argument Integer first, @Argument String after, @Argument Integer last, @Argument String before) {
         List<Edge<Book>> bookEdgeList = Book.getAllBooks()
