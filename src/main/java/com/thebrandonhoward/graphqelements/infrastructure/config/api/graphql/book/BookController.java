@@ -3,6 +3,7 @@ package com.thebrandonhoward.graphqelements.infrastructure.config.api.graphql.bo
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thebrandonhoward.graphqelements.domain.models.book.CustomerQuery;
+import com.thebrandonhoward.graphqelements.domain.models.book.Page;
 import com.thebrandonhoward.graphqelements.domain.models.review.Review;
 import com.thebrandonhoward.graphqelements.application.services.book.BookService;
 import com.thebrandonhoward.graphqelements.application.common.utils.CursorUtil;
@@ -51,32 +52,52 @@ public class BookController {
         return null;
     }
 
- //   @QueryMapping
-//    public List<Book> books() {
-//        return Book.getAllBooks();
-//    }
+    @QueryMapping
+    public Page<Book> books(@Argument String after, @Argument int first, @Argument int last, @Argument String before) {
+        // Define the cursor-based pagination logic.
+        List<Book> books;
+        String cursor = null;
+
+        // Logic to query books with cursor-based pagination
+        if (after == null) {
+            books = Book.getAllBooks().stream().limit(first).toList();
+        } else {
+            Long lastKey = Long.parseLong(after); // Convert cursor (last book's id)
+            books = Book.getAllBooks().stream()
+                    .filter(book -> book.key() > lastKey)
+                    .limit(first)
+                    .toList();
+        }
+
+        // If there are more books after the current page, return a cursor.
+        if (books.size() == first) {
+            cursor = String.valueOf(books.get(books.size() - 1).key());
+        }
+
+        return new Page<>(books, cursor);
+    }
 
     @QueryMapping()
     public CustomerQuery customerQuery() {
         return new CustomerQuery();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @QueryMapping
-    public Connection<Book> books(@Argument Integer first, @Argument String after, @Argument Integer last, @Argument String before) {
-        List<Edge<Book>> bookEdgeList = Book.getAllBooks()
-                .stream()
-                .map(book -> new DefaultEdge<>(book, cursorUtil.from(book.id())))
-                .collect(Collectors.toUnmodifiableList());
-
-        ConnectionCursor firstCursorFrom = cursorUtil.getFirstCursorFrom(bookEdgeList);
-
-        ConnectionCursor lastCursorFrom = cursorUtil.getLastCursorFrom(bookEdgeList);
-
-        PageInfo pageInfo = new DefaultPageInfo(firstCursorFrom, lastCursorFrom, before != null, bookEdgeList.size() >= first);
-
-        return new DefaultConnection<>(bookEdgeList, pageInfo);
-    }
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @QueryMapping
+//    public Connection<Book> books(@Argument Integer first, @Argument String after, @Argument Integer last, @Argument String before) {
+//        List<Edge<Book>> bookEdgeList = Book.getAllBooks()
+//                .stream()
+//                .map(book -> new DefaultEdge<>(book, cursorUtil.from(book.id())))
+//                .collect(Collectors.toUnmodifiableList());
+//
+//        ConnectionCursor firstCursorFrom = cursorUtil.getFirstCursorFrom(bookEdgeList);
+//
+//        ConnectionCursor lastCursorFrom = cursorUtil.getLastCursorFrom(bookEdgeList);
+//
+//        PageInfo pageInfo = new DefaultPageInfo(firstCursorFrom, lastCursorFrom, before != null, bookEdgeList.size() >= first);
+//
+//        return new DefaultConnection<>(bookEdgeList, pageInfo);
+//    }
 
     @SubscriptionMapping
     public Flux<Book> bookAdded() {

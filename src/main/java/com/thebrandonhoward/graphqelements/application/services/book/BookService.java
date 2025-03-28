@@ -12,7 +12,7 @@ import java.util.Random;
 public class BookService {
 
     public Book addBook(String title, String author) {
-        Book newBook = new Book(generateId(), title, 1, new Author("author-"+new Random().nextInt(7), author, author, null));
+        Book newBook = new Book(new Random().nextLong(), generateId(), title, 1, new Author("author-"+new Random().nextInt(7), author, author, null));
 
         Book.getAllBooks().add(newBook);
 

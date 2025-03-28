@@ -7,7 +7,7 @@ type Query {
     bookById(id: ID): Book # Retrieve a book by ID.
 #    books: [Book] # Retrieve all books.
 #    https://docs.spring.io/spring-graphql/reference/request-execution.html#execution.pagination
-    books(first:Int, after:String, last:Int, before:String): BookConnection
+    books(after:String, first:Int, last:Int, before:String): Page
 }
 
 type CustomerQuery {
