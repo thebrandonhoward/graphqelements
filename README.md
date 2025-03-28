@@ -184,3 +184,15 @@ http://localhost:8080/graphiql?path=/graphql
       }
     }
   
+
+
+    query {
+        books(after: "2", first: 2, last: 0, before: "") {
+            content {
+                id
+                key
+            }
+            cursor
+        
+        }
+    }
