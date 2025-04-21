@@ -3,6 +3,7 @@ package com.thebrandonhoward.graphqelements.adapters.account;
 import com.thebrandonhoward.graphqelements.adapters.repositories.BankAccountRepository;
 import com.thebrandonhoward.graphqelements.domain.models.account.BankAccount;
 import com.thebrandonhoward.graphqelements.domain.models.account.DebitTransaction;
+import com.thebrandonhoward.graphqelements.domain.models.exceptions.BankAccountNotFoundException;
 import com.thebrandonhoward.graphqelements.domain.models.mocks.MockClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class BankAccountDebitAdapter {
                 = bankAccountRepository.getBankAccountById(UUID.fromString(debitTransaction.accountId));
 
         if(rootBankAccount == null)
-            return null;
+            throw new BankAccountNotFoundException(String.format("Bank account with id %s not found", debitTransaction.accountId));
 
         BankAccount bankAccount = BankAccount.builder()
                 .id(rootBankAccount.getId().toString())

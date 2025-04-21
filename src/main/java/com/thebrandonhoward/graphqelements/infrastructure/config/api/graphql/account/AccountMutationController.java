@@ -4,12 +4,19 @@ import com.thebrandonhoward.graphqelements.adapters.account.BankAccountCreditAda
 import com.thebrandonhoward.graphqelements.adapters.account.BankAccountDebitAdapter;
 import com.thebrandonhoward.graphqelements.adapters.account.CreateBankAccountAdapter;
 import com.thebrandonhoward.graphqelements.domain.models.account.*;
+import com.thebrandonhoward.graphqelements.domain.models.exceptions.BankAccountNotFoundException;
+import graphql.GraphQLError;
+import graphql.schema.DataFetchingEnvironment;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.GraphQlExceptionHandler;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,5 +51,16 @@ public class AccountMutationController {
         log.info("Debit transaction: {}", debitTransaction);
 
         return bankAccountDebitAdapter.debitBankAccount(debitTransaction);
+    }
+
+
+    @GraphQlExceptionHandler
+    public GraphQLError handle(@NonNull BankAccountNotFoundException bankAccountNotFoundException, @NonNull DataFetchingEnvironment dataFetchingEnvironment) {
+        return GraphQLError.newError()
+                .message(bankAccountNotFoundException.getMessage())
+                .path(dataFetchingEnvironment.getExecutionStepInfo().getPath())
+                .location(dataFetchingEnvironment.getField().getSourceLocation())
+                .extensions(Map.of())
+                .build();
     }
 }
