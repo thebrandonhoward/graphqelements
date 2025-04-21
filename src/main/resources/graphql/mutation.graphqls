@@ -1,0 +1,8 @@
+type Mutation {
+    accountMutation: AccountMutation!
+}
+
+type AccountMutation {
+    debitAccount(debitTransaction: DebitTransaction!): BankAccount
+    creditAccount(creditTransaction: CreditTransaction!): BankAccount
+}

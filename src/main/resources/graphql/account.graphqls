@@ -1,0 +1,30 @@
+enum Currency {
+    CAD, EUR, USD
+}
+
+input DebitTransaction {
+accountId: ID!
+debitAmount: Float!
+currency: Currency!
+}
+
+input CreditTransaction {
+accountId: ID!
+creditAmount: Float!
+currency: Currency!
+}
+
+type BankAccount {
+id: ID!
+client: Client!
+currency: Currency!
+balance: Float!
+status: String!
+}
+
+type Client {
+id: ID!
+firstName: String!
+middleName: String
+lastName: String!
+}

@@ -3,6 +3,7 @@ package com.thebrandonhoward.graphqelements.infrastructure.config.auth;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.graphql.server.support.GraphQlWebSocketMessageType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class SecurityConfig {
                             })
                             .limit(5)
                             .toList();
-
+//        GraphQlWebSocketMessageType
         List<UserDetails> list2 = Stream.generate(() -> {
                     counter.incrementAndGet();
                     return User.withDefaultPasswordEncoder()
@@ -79,4 +79,8 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
+//    public static void main(String... args) {
+//        System.out.println(GraphQlWebSocketMessageType.fromValue("connection_init"));
+//    }
 }

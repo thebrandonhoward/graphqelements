@@ -15,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
-import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
@@ -61,7 +59,7 @@ public class BookController {
         return new CustomerQuery();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @QueryMapping
     public Connection<Book> books(@Argument Integer first, @Argument String after, @Argument Integer last, @Argument String before) {
         List<Edge<Book>> bookEdgeList = Book.getAllBooks()
@@ -78,9 +76,9 @@ public class BookController {
         return new DefaultConnection<>(bookEdgeList, pageInfo);
     }
 
-    @SubscriptionMapping
+   //@SubscriptionMapping
     public Flux<Book> bookAdded() {
-        return Flux.interval(Duration.ofSeconds(5))
+        return Flux.interval(Duration.ofMinutes(5))
                 .map(interval -> publishBook());
     }
 
@@ -105,7 +103,9 @@ public class BookController {
 
     // Method to simulate adding a new book and publishing it
     public Book publishBook() {
-        return bookService.addBook("AddedBook-"+new Random().nextInt(), "AddedAuthor-"+new Random().nextInt());
+        Book book = bookService.addBook("AddedBook-"+new Random().nextInt(), "AddedAuthor-"+new Random().nextInt());
+        log.info("+ {}", book.id());
+        return book;
     }
 
 }

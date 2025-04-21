@@ -1,0 +1,9 @@
+"""
+Represents a book in the library.
+"""
+type Book {
+    id: ID! # The unique ID of the book.  Required.
+    name: String! # The title of the book.  Required.
+    pageCount: Int # The number of pages in the book.
+    author: Author # The author of the book.
+}

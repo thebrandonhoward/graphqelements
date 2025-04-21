@@ -24,6 +24,9 @@ public record Book (String id, String name, int pageCount, Author author) {
     }
 
     public static List<Book> getAllBooks() {
+        if(books.size() > 100)
+            books.clear();
+        
         return books;
     }
 }
