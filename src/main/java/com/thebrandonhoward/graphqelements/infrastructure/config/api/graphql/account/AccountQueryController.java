@@ -9,6 +9,7 @@ import com.thebrandonhoward.graphqelements.domain.models.mocks.MockBankAccount;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.ContextValue;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,10 @@ public class AccountQueryController {
     private final BankAccountLookupAdapter bankAccountLookupAdapter;
 
     @QueryMapping
-    public AccountQuery accountQuery() {
+    //"token" header will be required on every request that passes through accountQuery
+    public AccountQuery accountQuery(@ContextValue String token) {
         log.info("Getting account query");
+        log.info("Token: {}", token);
 
         return new AccountQuery();
     }
