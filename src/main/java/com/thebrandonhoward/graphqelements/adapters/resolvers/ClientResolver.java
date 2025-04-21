@@ -1,13 +1,11 @@
-package com.thebrandonhoward.graphqelements.adapters;
+package com.thebrandonhoward.graphqelements.adapters.resolvers;
 
 import com.thebrandonhoward.graphqelements.domain.models.account.BankAccount;
 import com.thebrandonhoward.graphqelements.domain.models.account.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
-import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

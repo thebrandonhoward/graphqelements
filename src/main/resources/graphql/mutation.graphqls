@@ -3,6 +3,7 @@ type Mutation {
 }
 
 type AccountMutation {
+    createAccount(accountApplication: AccountApplication!): BankAccount
     debitAccount(debitTransaction: DebitTransaction!): BankAccount
     creditAccount(creditTransaction: CreditTransaction!): BankAccount
 }

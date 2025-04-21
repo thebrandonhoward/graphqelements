@@ -4,21 +4,33 @@ enum Currency {
 
 input DebitTransaction {
 accountId: ID!
-debitAmount: Float!
+debitAmount: BigDecimal!
 currency: Currency!
 }
 
 input CreditTransaction {
 accountId: ID!
-creditAmount: Float!
+creditAmount: BigDecimal!
 currency: Currency!
+}
+
+input AccountApplication {
+    client: ApplicationClient!
+    currency: Currency!
+    balance: BigDecimal!
+}
+
+input ApplicationClient {
+    firstName: String!
+    middleName: String
+    lastName: String!
 }
 
 type BankAccount {
 id: ID!
 client: Client!
 currency: Currency!
-balance: Float!
+balance: BigDecimal!
 status: String!
 }
 

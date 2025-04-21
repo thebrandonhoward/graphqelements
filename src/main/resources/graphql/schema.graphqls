@@ -1,2 +1,3 @@
 scalar DateTime @specifiedBy(url: "https://scalars.graphql.org/andimarek/date-time.html")
 scalar Long
+scalar BigDecimal

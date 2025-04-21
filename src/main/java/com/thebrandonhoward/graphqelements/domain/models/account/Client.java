@@ -1,5 +1,6 @@
 package com.thebrandonhoward.graphqelements.domain.models.account;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
