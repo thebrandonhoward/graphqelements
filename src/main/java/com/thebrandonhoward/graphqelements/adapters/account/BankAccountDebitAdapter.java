@@ -31,6 +31,12 @@ public class BankAccountDebitAdapter {
                 .currency(BankAccount.Currency.valueOf(rootBankAccount.getCurrency()))
                 .build();
 
-        return bankAccount.debitFunds(debitTransaction);
+        bankAccount.debitFunds(debitTransaction);
+
+        rootBankAccount.setBalance(bankAccount.getBalance());
+
+        bankAccountRepository.save(rootBankAccount);
+
+        return bankAccount;
     }
 }

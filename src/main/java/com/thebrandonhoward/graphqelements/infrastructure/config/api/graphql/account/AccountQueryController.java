@@ -33,8 +33,7 @@ public class AccountQueryController {
     public List<BankAccount> accounts(AccountQuery query) {
         log.info("Getting all accounts");
 
-        return List.of(MockBankAccount.getBankAccountMock(),
-                        MockBankAccount.getBankAccountMock());
+        return bankAccountLookupAdapter.fetchAll();
     }
 
     @SchemaMapping

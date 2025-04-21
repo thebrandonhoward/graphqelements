@@ -31,6 +31,12 @@ public class BankAccountCreditAdapter {
                 .currency(BankAccount.Currency.valueOf(rootBankAccount.getCurrency()))
                 .build();
 
-        return bankAccount.creditFunds(creditTransaction);
+        bankAccount.creditFunds(creditTransaction);
+
+        rootBankAccount.setBalance(bankAccount.getBalance());
+
+        bankAccountRepository.save(rootBankAccount);
+
+        return bankAccount;
     }
 }
