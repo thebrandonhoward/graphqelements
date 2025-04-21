@@ -7,3 +7,27 @@ type Book {
     pageCount: Int # The number of pages in the book.
     author: Author # The author of the book.
 }
+
+type Page {
+    content: [Book]
+    cursor: String
+}
+
+"""
+Represents an author.
+"""
+type Author {
+    id: ID! # The unique ID of the author. Required.
+    firstName: String # The author's first name.
+    lastName: String # The author's last name.
+    reviews(filter: Int): [Review] # Reviews written by this author.  Optional filter by rating.
+}
+
+"""
+Represents a review of a book.
+"""
+type Review {
+    id: ID! # The unique ID of the review. Required.
+    message: String # The text of the review.
+    rating: Long # The rating given in the review (e.g., 1-5).
+}

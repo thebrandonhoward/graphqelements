@@ -103,11 +103,6 @@ public class BookController {
                 .map(interval -> publishBook());
     }
 
-    @SchemaMapping(typeName = "CustomerQuery", field = "booksForSale")
-    public List<Book> book(CustomerQuery customerQuery) {
-        return Book.getAllBooks();
-    }
-
     @SchemaMapping
     public Author author(Book book) {
         return Author.getById(book.author().id());
