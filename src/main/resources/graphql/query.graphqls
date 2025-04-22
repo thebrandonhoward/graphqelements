@@ -4,6 +4,7 @@ Query schema for Book APIs
 type Query {
     accountQuery: AccountQuery
     customerQuery: CustomerQuery
+    userQuery: UserQuery
     author(id: ID!): Author # Retrieve an author by ID.
     bookById(id: ID): Book # Retrieve a book by ID.
     #https://docs.spring.io/spring-graphql/reference/request-execution.html#execution.pagination
@@ -17,4 +18,8 @@ type AccountQuery {
 
 type CustomerQuery {
     booksForSale: [Book!]!
+}
+
+type UserQuery {
+    userProfileById(userId: String): UserProfile
 }

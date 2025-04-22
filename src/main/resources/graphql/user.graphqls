@@ -1,0 +1,12 @@
+type UserProfile {
+    profileId: ID!
+    imageUrl: String
+    user: User
+}
+
+type User {
+    userId: ID!
+    firstName: String!
+    middleName: String
+    lastName: String!
+}

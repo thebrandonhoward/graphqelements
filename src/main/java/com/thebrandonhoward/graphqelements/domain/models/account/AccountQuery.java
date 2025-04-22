@@ -2,7 +2,6 @@ package com.thebrandonhoward.graphqelements.domain.models.account;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
